@@ -1,0 +1,85 @@
+version: '3.6'
+services:
+  mysql:
+    image: mysql:5.6
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=example
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+      - ./mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+      - ./mysql_log:/var/log/mysql
+    networks:
+      - elastic
+  elasticsearch:
+    image: elasticsearch:7.6.2
+    ports:
+      - 9300:9300
+      - 9200:9200
+    environment:
+      - discovery.seed_hosts=elasticsearch
+      - cluster.name=DevOps
+      - ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - network.host=0.0.0.0
+    volumes:
+      - ./elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - elastic
+  kibana:
+    image: kibana:7.6.2
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic}
+      - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
+    ports:
+      - 5601:5601
+    networks:
+      - elastic
+    depends_on:
+      - elasticsearch
+  logstash:
+    image: logstash:7.6.2
+    ports:
+      - 9600:9600
+      - 5044:5044
+    networks:
+      - elastic
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./mysql_log/error.log:/usr/share/logstash/error.log
+    depends_on:
+      - elasticsearch
+      - kibana
+      - mysql
+  metricbeat:
+    image: docker.elastic.co/beats/metricbeat:7.6.2
+    user: root
+    networks:
+      - elastic
+    volumes:
+      - ./metricbeat_data:/usr/share/metricbeat/data
+      - /:/hostfs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - OUTPUT_ELASTICSEARCH_HOST=http://elasticsearch:9200
+      - SETUP_KIBANA_HOST=kibana:5601
+      - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME:-elastic}
+      - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD:-changeme}
+    # disable strict permission checks
+    command: ["--strict.perms=false", "-system.hostfs=/hostfs"]
+    depends_on:
+      - elasticsearch
+      - kibana
+      - mysql
+volumes:
+  elasticsearch_data:
+  mysql_data:
+  metricbeat_data:
+networks:
+  elastic:
