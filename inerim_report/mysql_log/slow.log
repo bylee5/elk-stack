@@ -1,0 +1,51 @@
+mysqld, Version: 5.6.47-log (MySQL Community Server (GPL)). started with:
+Tcp port: 0  Unix socket: /var/run/mysqld/mysqld.sock
+Time                 Id Command    Argument
+mysqld, Version: 5.6.47-log (MySQL Community Server (GPL)). started with:
+Tcp port: 0  Unix socket: /var/run/mysqld/mysqld.sock
+Time                 Id Command    Argument
+mysqld, Version: 5.6.47-log (MySQL Community Server (GPL)). started with:
+Tcp port: 0  Unix socket: /var/run/mysqld/mysqld.sock
+Time                 Id Command    Argument
+# Time: 200522  2:51:43
+# User@Host: root[root] @ localhost []  Id:     2
+# Query_time: 2.009673  Lock_time: 0.000000 Rows_sent: 1  Rows_examined: 0
+SET timestamp=1590115903;
+select sleep(2);
+# Time: 200522  2:58:06
+# User@Host: root[root] @ localhost []  Id:     2
+# Query_time: 2.002812  Lock_time: 0.000000 Rows_sent: 1  Rows_examined: 0
+SET timestamp=1590116286;
+select sleep(2);
+# Time: 200522  2:59:29
+# User@Host: root[root] @ localhost []  Id:     2
+# Query_time: 2.005841  Lock_time: 0.000000 Rows_sent: 1  Rows_examined: 0
+SET timestamp=1590116369;
+select sleep(2);
+# Time: 200522  3:03:19
+# User@Host: root[root] @ localhost []  Id:     2
+# Query_time: 3.001622  Lock_time: 0.000000 Rows_sent: 1  Rows_examined: 0
+SET timestamp=1590116599;
+select sleep(3);
+mysqld, Version: 5.6.47-log (MySQL Community Server (GPL)). started with:
+Tcp port: 0  Unix socket: /var/run/mysqld/mysqld.sock
+Time                 Id Command    Argument
+mysqld, Version: 5.6.47-log (MySQL Community Server (GPL)). started with:
+Tcp port: 0  Unix socket: /var/run/mysqld/mysqld.sock
+Time                 Id Command    Argument
+mysqld, Version: 5.6.47-log (MySQL Community Server (GPL)). started with:
+Tcp port: 0  Unix socket: /var/run/mysqld/mysqld.sock
+Time                 Id Command    Argument
+mysqld, Version: 5.6.47-log (MySQL Community Server (GPL)). started with:
+Tcp port: 0  Unix socket: /var/run/mysqld/mysqld.sock
+Time                 Id Command    Argument
+# Time: 200522  6:03:35
+# User@Host: root[root] @ localhost []  Id:     2
+# Query_time: 2.017236  Lock_time: 0.000000 Rows_sent: 1  Rows_examined: 0
+SET timestamp=1590127415;
+select sleep(2);
+# Time: 200522  6:04:13
+# User@Host: root[root] @ localhost []  Id:     2
+# Query_time: 2.003842  Lock_time: 0.000000 Rows_sent: 1  Rows_examined: 0
+SET timestamp=1590127453;
+select sleep(2);
